@@ -1,2 +1,40 @@
+* { font-family: "Source Sans Pro", "Arial", sans-serif; }
+body, html {
+  margin: 0;
+  height: 100%;
+}
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #a1c5f4;
+  height: 100%;
+}
+
 .app {
+  padding: 2rem 4rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 1px 4px 13px rgba(0, 0, 0, .3);
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  background: #3d76c1;
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background linear 150ms;
+  font-size: 1.1rem;
+}
+
+button:hover {
+  background: #265faa;
 }

@@ -27,8 +27,9 @@ function Leaderboard({data, width}) {
 
     const fontSize = '1.5rem';
 
-    const textColor = '#E0E0E0';
+    const textColor = '#000000';
     const bgColor = '#81858E';
+    const barColor = '#00FF00'; 
     
     // Join the data
     // We use the ID to find rows of same data
@@ -99,7 +100,7 @@ function Leaderboard({data, width}) {
       .transition()
         .ease(d3.easePolyOut)
         .duration(1000)
-        .attr('fill', '#FF0000')
+        .attr('fill', barColor)
         .attr('width', d => x(d.value));
     
     // Update label text
