@@ -16,6 +16,11 @@ body, html {
   background-color: white;
   border-radius: 10px;
   box-shadow: 1px 4px 13px rgba(0, 0, 0, .3);
+  box-sizing: border-box;
+
+  /* DO NOT FORGET TO SET DEFAULT WIDTH AND MAX WIDTH ! */
+  max-width: 700px;
+  width: 100vw;
 }
 
 .button {

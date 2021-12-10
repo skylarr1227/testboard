@@ -7,7 +7,7 @@ function Leaderboard({data, width}) {
 
   // Constants
   const rowHeight = 80;
-  const barHeight = 12;
+  const barHeight = 10;
   const marginText = 8;
 
   // Set the dimensions and margins of the graph
@@ -25,7 +25,7 @@ function Leaderboard({data, width}) {
     const x = d3.scaleLinear().domain([0, maxValue]).range([5, width]);
     const y = d3.scaleLinear().domain([0, data.length]).range([0, height]);
 
-    const fontSize = '1.5rem';
+    const fontSize = '1.1rem';
 
     const textColor = '#000000';
     const bgColor = '#81858E';
