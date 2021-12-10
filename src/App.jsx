@@ -18,11 +18,13 @@ function App() {
   useEffect(() => refreshData(), [refreshData]);
 
   return (
-    <div className="app" ref={ref}>
-      <Leaderboard
-        data={data}
-        width={leaderboardWidth}
-      />
+    <div className="app">
+      <div className="leaderboard-container" ref={ref}>
+        <Leaderboard
+          data={data}
+          width={leaderboardWidth}
+        />
+      </div>
 
       <div className="button">
         <button onClick={() => refreshData()}>Refresh Data</button>

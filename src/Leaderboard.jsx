@@ -6,9 +6,9 @@ function Leaderboard({data, width}) {
   const screenSize = 1;
 
   // Constants
-  const rowHeight = 80;
+  const rowHeight = 60;
   const barHeight = 10;
-  const marginText = 8;
+  const marginText = 2;
 
   // Set the dimensions and margins of the graph
   const [height, setHeight] = useState(rowHeight * data.length ?? 0);
@@ -28,8 +28,8 @@ function Leaderboard({data, width}) {
     const fontSize = '1.1rem';
 
     const textColor = '#000000';
-    const bgColor = '#81858E';
-    const barColor = '#00FF00'; 
+    const bgColor = '#d4d8df';
+    const barColor = '#3d76c1'; 
     
     // Join the data
     // We use the ID to find rows of same data
@@ -86,7 +86,7 @@ function Leaderboard({data, width}) {
       .transition()
         .ease(d3.easePoly)
         .duration(500)
-        .attr('transform', (d, i) => `translate(0, ${y(i)})`);
+        .attr('transform', (d, i) => `translate(0, ${y(i) + 30})`);
 
     // Update rect bg
     gUpdate
@@ -117,7 +117,7 @@ function Leaderboard({data, width}) {
       .attr('fill', textColor)
       .attr('font-size', fontSize)
       .attr('x', x(maxValue));
-  }, [d3Ref, data, width, screenSize, marginText, rowHeight]);
+  }, [d3Ref, data, width, screenSize, marginText, rowHeight, barHeight]);
 
   return (
     <svg
