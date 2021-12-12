@@ -10,8 +10,8 @@ function Intro() {
       </p>
 
       <p>
-        Check out the <a href="https://github.com/rhidra/d3js-leaderboard">source code here</a>, and 
-        the original <a href="https://blog.remyhidra.dev/">blog post here</a>.
+        Check out the <a href="https://github.com/rhidra/d3js-leaderboard" target="_blank">source code here</a>, and 
+        the original <a href="https://blog.remyhidra.dev/" target="_blank">blog post here</a>.
       </p>
     </div>
   );
