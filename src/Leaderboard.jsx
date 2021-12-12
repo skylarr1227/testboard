@@ -13,6 +13,7 @@ function Leaderboard({data, width}) {
   const [height, setHeight] = useState(rowHeight * data.length ?? 0);
 
   useEffect(() => {
+    console.log('Hey')
     setHeight(rowHeight * data.length);
     const height = rowHeight * data.length;
 
