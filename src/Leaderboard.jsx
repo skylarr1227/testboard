@@ -3,7 +3,6 @@ import * as d3 from 'd3';
 
 function Leaderboard({data, width}) {
   const d3Ref = useRef(null);
-  const screenSize = 1;
 
   // Constants
   const rowHeight = 60;
@@ -117,7 +116,7 @@ function Leaderboard({data, width}) {
       .attr('fill', textColor)
       .attr('font-size', fontSize)
       .attr('x', x(maxValue));
-  }, [d3Ref, data, width, screenSize, marginText, rowHeight, barHeight]);
+  }, [d3Ref, data, width, marginText, rowHeight, barHeight]);
 
   return (
     <svg
