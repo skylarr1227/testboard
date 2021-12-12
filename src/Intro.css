@@ -8,3 +8,8 @@
   margin-top: 0;
   color: #162c4a;
 }
+
+a {
+  color: #0a3a79;
+  text-decoration-style: dashed;
+}
