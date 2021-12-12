@@ -34,16 +34,6 @@ function Leaderboard({data, width}) {
     // We use the ID to find rows of same data
     const g = svg.selectAll('g').data(data, d => d.id);
 
-    // Exit animation
-    g.exit()
-        .attr('opacity', 1)
-      .transition()
-        .ease(d3.easeLinear)
-        .duration(200)
-        .attr('transform', (d, i) => `translate(-50, ${y(i)})`)
-        .attr('opacity', 0)
-      .remove();
-
     // Initialization
     const gEnter = g.enter()
       .append('g')
@@ -53,14 +43,16 @@ function Leaderboard({data, width}) {
     gEnter
       .append('rect')
         .attr('class', 'bg')
+        .attr('fill', bgColor)
         .attr('x', 0).attr('y', marginText)
         .attr('rx', 5).attr('ry', 5)
-        .attr('height', barHeight)
+        .attr('height', barHeight);
 
     // Append main rect as child
     gEnter
       .append('rect')
         .attr('class', 'main')
+        .attr('fill', barColor)
         .attr('x', 0).attr('y', marginText)
         .attr('rx', 5).attr('ry', 5)
         .attr('height', barHeight);
@@ -69,14 +61,19 @@ function Leaderboard({data, width}) {
     gEnter
       .append('text')
         .attr('class', 'label')
+        .attr('font-size', fontSize)
+        .attr('fill', textColor)
         .attr('x', 0)
-        .attr('y', -5);
+        .attr('y', -5)
+        .text(d => d.label);
 
     // Append value text as child
     gEnter
       .append('text')
         .attr('class', 'value')
         .attr('text-anchor', 'end')
+        .attr('fill', textColor)
+        .attr('font-size', fontSize)
         .attr('y', -5);
 
     // Update each g row, when data changes
@@ -90,8 +87,7 @@ function Leaderboard({data, width}) {
     // Update rect bg
     gUpdate
       .select('rect.bg')
-      .attr('width', x(maxValue))
-      .attr('fill', bgColor);
+      .attr('width', x(maxValue));
 
     // Update rect main
     gUpdate
@@ -99,23 +95,23 @@ function Leaderboard({data, width}) {
       .transition()
         .ease(d3.easePolyOut)
         .duration(1000)
-        .attr('fill', barColor)
         .attr('width', d => x(d.value));
-    
-    // Update label text
-    gUpdate
-      .select('text.label')
-      .attr('font-size', fontSize)
-      .attr('fill', textColor)
-      .text(d => d.label);
     
     // Update value text
     gUpdate
       .select('text.value')
       .text(d => d.value)
-      .attr('fill', textColor)
-      .attr('font-size', fontSize)
       .attr('x', x(maxValue));
+    
+    // Exit animation
+    g.exit()
+        .attr('opacity', 1)
+      .transition()
+        .ease(d3.easeLinear)
+        .duration(200)
+        .attr('transform', (d, i) => `translate(-50, ${y(i)})`)
+        .attr('opacity', 0)
+      .remove();
   }, [d3Ref, data, width, marginText, rowHeight, barHeight]);
 
   return (
