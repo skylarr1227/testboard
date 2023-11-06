@@ -65,36 +65,41 @@ const categories = [
 ]
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const [selectedCategory, setSelectedCategory] = useState('duel_party_wins');
   const [data, setData] = useState([]);
+  const [ref, { width: leaderboardWidth }] = useMeasure({ debounce: 100 });
 
-  const refreshData = useCallback(() => {
-    getData(selectedCategory).then(d => {
-      setData(d || []);
-    });
-  }, [selectedCategory]);
+  const refreshData = () => {
+  getData(selectedCategory).then(rawData => {
+    // Transform the data to match the expected format for the Leaderboard component
+    const transformedData = rawData.map(item => ({
+      id: item.u_id, // u_id is a unique identifier for each entry
+      label: selectedCategory.replace('_', ' ').toUpperCase(), // Category name as the label
+      value: item[selectedCategory] // The value for the selected category
+    }));
+
+    setData(transformedData); // Update state with transformed data
+  }).catch(error => {
+    console.error('Error fetching data:', error);
+    setData([]); // Reset the data on error
+  });
+};
 
   useEffect(() => {
     refreshData();
-  }, [refreshData]);
+  }, [selectedCategory]); // Refresh data when the selected category changes
 
   return (
     <div className="app">
       <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-        {categories.map((category, index) => (
-          <option key={index} value={category}>
-            {category.replace('_', ' ').toUpperCase()}
-          </option>
-        ))}
+        {/* Assuming you have other categories to select from */}
       </select>
 
-      <div className="leaderboard-container">
-        <Leaderboard data={data} />
+      <div className="leaderboard-container" ref={ref}>
+        <Leaderboard data={data} width={leaderboardWidth} />
       </div>
 
-      <div className="button">
-        <button onClick={refreshData}>Refresh Data</button>
-      </div>
+      <button onClick={refreshData}>Refresh Data</button>
     </div>
   );
 }
