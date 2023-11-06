@@ -65,41 +65,51 @@ const categories = [
 ]
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState('duel_party_wins');
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [data, setData] = useState([]);
-  const [ref, { width: leaderboardWidth }] = useMeasure({ debounce: 100 });
 
-  const refreshData = () => {
-  getData(selectedCategory).then(rawData => {
-    // Transform the data to match the expected format for the Leaderboard component
-    const transformedData = rawData.map(item => ({
-      id: item.u_id, // u_id is a unique identifier for each entry
-      label: selectedCategory.replace('_', ' ').toUpperCase(), // Category name as the label
-      value: item[selectedCategory] // The value for the selected category
-    }));
+  // Define the function that fetches data and updates state
+  const refreshData = useCallback(() => {
+    getData(selectedCategory)
+      .then(rawData => {
+        const transformedData = rawData.map(item => ({
+          id: item.u_id,
+          label: selectedCategory.replace('_', ' ').toUpperCase(),
+          value: item[selectedCategory]
+        }));
+        setData(transformedData);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setData([]);
+      });
+  }, [selectedCategory]);
 
-    setData(transformedData); // Update state with transformed data
-  }).catch(error => {
-    console.error('Error fetching data:', error);
-    setData([]); // Reset the data on error
-  });
-};
-
+  // Use an effect to fetch data when the selectedCategory changes
   useEffect(() => {
     refreshData();
-  }, [selectedCategory]); // Refresh data when the selected category changes
+  }, [selectedCategory, refreshData]);
 
   return (
     <div className="app">
-      <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-        {/* Assuming you have other categories to select from */}
+      <select
+        value={selectedCategory}
+        onChange={(e) => setSelectedCategory(e.target.value)}
+      >
+        {categories.map((category, index) => (
+          <option key={index} value={category}>
+            {category.replace('_', ' ').toUpperCase()}
+          </option>
+        ))}
       </select>
 
-      <div className="leaderboard-container" ref={ref}>
-        <Leaderboard data={data} width={leaderboardWidth} />
+      <div className="leaderboard-container">
+        <Leaderboard data={data} />
       </div>
 
-      <button onClick={refreshData}>Refresh Data</button>
+      <div className="button">
+        <button onClick={refreshData}>Refresh Data</button>
+      </div>
     </div>
   );
 }
