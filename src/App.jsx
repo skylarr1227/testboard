@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './App.css';
 import Leaderboard from './Leaderboard';
 import { getData } from './data';
@@ -67,6 +67,7 @@ const categories = [
 function App() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [data, setData] = useState([]);
+  const [ref, {width: leaderboardWidth}] = useMeasure({debounce: 100});
 
   // Fetch leaderboard data based on the selected category
   const refreshData = useCallback(() => {
@@ -87,8 +88,11 @@ function App() {
         ))}
       </select>
 
-      <div className="leaderboard-container">
-        <Leaderboard data={data} />
+      <div className="leaderboard-container" ref={ref}>
+        <Leaderboard
+          data={data}
+          width={leaderboardWidth}
+        />
       </div>
 
       <div className="button">
