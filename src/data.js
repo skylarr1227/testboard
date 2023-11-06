@@ -2,7 +2,7 @@ const DATA = []
   
 // Return random data from a mock data array
 export function getData(category) {
-  const endpoint = `http://localhost:9998/leaderboard/${category}`; // replace with your actual endpoint
+  const endpoint = `http://37.187.250.140:9998/leaderboard/${category}`; // replace with your actual endpoint
   return fetch(endpoint)
     .then(response => {
       if (!response.ok) {
