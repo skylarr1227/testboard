@@ -67,7 +67,7 @@ const categories = [
 function App() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [data, setData] = useState([]);
-
+  const [ref, {width: leaderboardWidth}] = useMeasure({debounce: 100});
   // Define the function that fetches data and updates state
   const refreshData = useCallback(() => {
     getData(selectedCategory)
@@ -104,7 +104,7 @@ function App() {
       </select>
 
       <div className="leaderboard-container">
-        <Leaderboard data={data} />
+        <Leaderboard data={data} width={leaderboardWidth} />
       </div>
 
       <div className="button">
