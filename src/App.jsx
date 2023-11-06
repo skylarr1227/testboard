@@ -69,7 +69,7 @@ const categories = [
 function App() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [data, setData] = useState([]);
-  const [width, setWidth] = useState(window.innerWidth * 0.2); // For example, 80% of the window width
+  const [width, setWidth] = useState(window.innerWidth * 0.35); // For example, 80% of the window width
 
   // Adjust the width when the window is resized
   useEffect(() => {
