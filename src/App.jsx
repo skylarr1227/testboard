@@ -67,11 +67,11 @@ const categories = [
 function App() {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [data, setData] = useState([]);
-  const [ref, {width: leaderboardWidth}] = useMeasure({debounce: 100});
 
-  // Fetch leaderboard data based on the selected category
   const refreshData = useCallback(() => {
-    getData(selectedCategory).then(d => setData(d || []));
+    getData(selectedCategory).then(d => {
+      setData(d || []);
+    });
   }, [selectedCategory]);
 
   useEffect(() => {
@@ -88,11 +88,8 @@ function App() {
         ))}
       </select>
 
-      <div className="leaderboard-container" ref={ref}>
-        <Leaderboard
-          data={data}
-          width={leaderboardWidth}
-        />
+      <div className="leaderboard-container">
+        <Leaderboard data={data} />
       </div>
 
       <div className="button">
