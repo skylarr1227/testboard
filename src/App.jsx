@@ -73,7 +73,7 @@ function App() {
 
   // Adjust the width when the window is resized
   useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth * 0.8);
+    const handleResize = () => setWidth(window.innerWidth * 0.4);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
