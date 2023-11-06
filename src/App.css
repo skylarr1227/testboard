@@ -1,7 +1,7 @@
 * { font-family: "Source Sans Pro", "Arial", sans-serif; }
 body, html, #root {
   margin: 0; padding: 0; height: 100%;
-  background: #3d76c1;
+  background: #7B00FF;
 }
 
 .wrapper {
@@ -27,10 +27,11 @@ body, html, #root {
   display: flex;
   justify-content: center;
   margin-top: 3rem;
+  background-color: #7B00FF;
 }
 
 button {
-  background: #3d76c1;
+  background: #7B00FF;
   border: none;
   padding: 1rem 3rem;
   border-radius: 8px;
@@ -42,5 +43,5 @@ button {
 }
 
 button:hover {
-  background: #265faa;
+  background: #32127A;
 }
