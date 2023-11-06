@@ -84,7 +84,7 @@ function App() {
       .then(rawData => {
         const transformedData = rawData.map(item => ({
           id: item.u_id,
-          label: item.tnick,
+          label: `${item.tnick} - (${item.u_id})`,
           value: item[selectedCategory]
         }));
         setData(transformedData);
