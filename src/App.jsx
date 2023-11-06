@@ -84,7 +84,7 @@ function App() {
       .then(rawData => {
         const transformedData = rawData.map(item => ({
           id: item.u_id,
-          label: selectedCategory.replace('_', ' ').toUpperCase(),
+          label: item.tnick,
           value: item[selectedCategory]
         }));
         setData(transformedData);
