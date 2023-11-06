@@ -1,7 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Leaderboard from './Leaderboard';
 import { getData } from './data';
-import { useEffect, useState, useCallback } from 'react';
 import useMeasure from 'react-use-measure';
 
 function App() {
