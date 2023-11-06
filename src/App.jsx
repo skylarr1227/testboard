@@ -5,29 +5,34 @@ import { useEffect, useState, useCallback } from 'react';
 import useMeasure from 'react-use-measure';
 
 function App() {
-  // Leaderboard panel width
-  const [ref, {width: leaderboardWidth}] = useMeasure({debounce: 100});
-
-  // Leaderboard data
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const [data, setData] = useState([]);
 
-  // Update the array
-  const refreshData = useCallback(() => getData().then(d => setData(d)), []);
+  // Fetch leaderboard data based on the selected category
+  const refreshData = useCallback(() => {
+    getData(selectedCategory).then(d => setData(d || []));
+  }, [selectedCategory]);
 
-  // Fill the data array at the page load
-  useEffect(() => refreshData(), [refreshData]);
+  useEffect(() => {
+    refreshData();
+  }, [refreshData]);
 
   return (
     <div className="app">
-      <div className="leaderboard-container" ref={ref}>
-        <Leaderboard
-          data={data}
-          width={leaderboardWidth}
-        />
+      <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+        {categories.map((category, index) => (
+          <option key={index} value={category}>
+            {category.replace('_', ' ').toUpperCase()}
+          </option>
+        ))}
+      </select>
+
+      <div className="leaderboard-container">
+        <Leaderboard data={data} />
       </div>
 
       <div className="button">
-        <button onClick={() => refreshData()}>Refresh Data</button>
+        <button onClick={refreshData}>Refresh Data</button>
       </div>
     </div>
   );
